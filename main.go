@@ -11,7 +11,7 @@ func dowork(d time.Duration, s string, ch chan string) {
 	time.Sleep(d)
 	fmt.Println("Work is done...")
 	ch <- s
-	wg.Done()
+	wg.Done() // decrements groups by one--;
 }
 
 var wg *sync.WaitGroup
@@ -32,6 +32,8 @@ func main() {
 		close(ch)
 	}()
 
-	wg.Wait()
+	wg.Wait() // waits untill groups are finished...
+
 	fmt.Printf("Work took %v seconds\n", time.Since(start))
+	time.Sleep(time.Second)
 }
